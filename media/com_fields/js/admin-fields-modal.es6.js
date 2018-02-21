@@ -5,7 +5,7 @@
 
 Joomla = window.Joomla || {};
 
-((Joomla => {
+((Joomla) => {
   'use strict';
 
   Joomla.fieldIns = (id, editor) => {
@@ -13,9 +13,9 @@ Joomla = window.Joomla || {};
     const win = window.parent;
     const parentJoomla = win.Joomla;
     if (parentJoomla && parentJoomla.editors && parentJoomla.editors.instances && parentJoomla.editors.instances.hasOwnProperty(editor)) {
-      parentJoomla.editors.instances[editor].replaceSelection("{field " + id + "}")
+      parentJoomla.editors.instances[editor].replaceSelection(`{field ${id}}`);
     } else {
-      win.jInsertEditorText("{field " + id + "}", editor);
+      win.jInsertEditorText(`{field ${id}}`, editor);
     }
 
     win.jModalClose();
@@ -26,11 +26,11 @@ Joomla = window.Joomla || {};
     const win = window.parent;
     const parentJoomla = win.Joomla;
     if (parentJoomla && parentJoomla.editors && parentJoomla.editors.instances && parentJoomla.editors.instances.hasOwnProperty(editor)) {
-      parentJoomla.editors.instances[editor].replaceSelection("{fieldgroup " + id + "}")
+      parentJoomla.editors.instances[editor].replaceSelection(`{fieldgroup ${id}}`);
     } else {
-      win.jInsertEditorText("{fieldgroup " + id + "}", editor);
+      win.jInsertEditorText(`{fieldgroup ${id}}`, editor);
     }
 
     win.jModalClose();
   };
-}))(Joomla);
+})(Joomla);
