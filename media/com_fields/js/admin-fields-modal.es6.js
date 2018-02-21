@@ -1,39 +1,34 @@
 /**
-* PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
-* OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
-**/
-
-/**
  * @copyright  Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 Joomla = window.Joomla || {};
 
-(function (Joomla) {
+((Joomla) => {
   'use strict';
 
-  Joomla.fieldIns = function (id, editor) {
+  Joomla.fieldIns = (id, editor) => {
     // Use the API, if editor supports it
-    var win = window.parent;
-    var parentJoomla = win.Joomla;
+    const win = window.parent;
+    const parentJoomla = win.Joomla;
     if (parentJoomla && parentJoomla.editors && parentJoomla.editors.instances && parentJoomla.editors.instances.hasOwnProperty(editor)) {
-      parentJoomla.editors.instances[editor].replaceSelection('{field ' + id + '}');
+      parentJoomla.editors.instances[editor].replaceSelection(`{field ${id}}`);
     } else {
-      win.jInsertEditorText('{field ' + id + '}', editor);
+      win.jInsertEditorText(`{field ${id}}`, editor);
     }
 
     win.jModalClose();
   };
 
-  Joomla.fieldgroupIns = function (id, editor) {
+  Joomla.fieldgroupIns = (id, editor) => {
     // Use the API, if editor supports it
-    var win = window.parent;
-    var parentJoomla = win.Joomla;
+    const win = window.parent;
+    const parentJoomla = win.Joomla;
     if (parentJoomla && parentJoomla.editors && parentJoomla.editors.instances && parentJoomla.editors.instances.hasOwnProperty(editor)) {
-      parentJoomla.editors.instances[editor].replaceSelection('{fieldgroup ' + id + '}');
+      parentJoomla.editors.instances[editor].replaceSelection(`{fieldgroup ${id}}`);
     } else {
-      win.jInsertEditorText('{fieldgroup ' + id + '}', editor);
+      win.jInsertEditorText(`{fieldgroup ${id}}`, editor);
     }
 
     win.jModalClose();
