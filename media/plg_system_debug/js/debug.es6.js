@@ -10,8 +10,8 @@ Joomla = window.Joomla || {};
 
   document.addEventListener('DOMContentLoaded', () => {
     Joomla.toggleContainer = name => {
-      const name = document.getElementById(name);
-      name.style.display = (name.style.display == 'none') ? 'block' : 'none';
+      const container = document.getElementById(name);
+      container.style.display = container.style.display === 'none' ? 'block' : 'none';
     };
 
     const sidebarWrapper = document.getElementById('sidebar-wrapper');
