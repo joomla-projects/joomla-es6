@@ -14,7 +14,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filter\OutputFilter;
 
-HTMLHelper::_('jquery.framework');
 HTMLHelper::_('behavior.core');
 HTMLHelper::_('script', 'system/fields/submenu.min.js', ['version' => 'auto', 'relative' => true]);
 ?>
