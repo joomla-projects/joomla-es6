@@ -38,14 +38,14 @@
 
     // Alert
     if (alert) {
-      Object.keys(alert).map((index, value) => {
+      Object.keys(alert).map((index) => {
         $(`#${index}`).alert();
       });
     }
 
     // Button
     if (button) {
-      Object.keys(button).map((index, value) => {
+      Object.keys(button).map((index) => {
         $(`#${index}`).button();
       });
     }
@@ -62,7 +62,7 @@
 
     // Dropdown menu
     if (dropdown) {
-      Object.keys(dropdown).map((index, value) => {
+      Object.keys(dropdown).map((index) => {
         $(`#${index}`).dropdown();
       });
     }
@@ -70,7 +70,7 @@
     // Modals
     if (modal.length) {
       const joomlaModals = [].slice.call(document.querySelectorAll('.joomla-modal'));
-      joomlaModals.forEach((index, value) => {
+      joomlaModals.forEach((index) => {
         const $self = $(this);
         $self.on('show.bs.modal', () => {
           if ($self.data('url')) {
@@ -120,8 +120,9 @@
     // Tabs
     if (tabs) {
       Object.keys(tabs).map((index, value) => {
-
-        $.each($(`#${index}Content`).find('.tab-pane'), (i, v) => {
+        const joomlaTabs = document.querySelectorAll('.joomla-modal');
+        const panes = [].slice.call(joomlaTabs.querySelectorAll(`#${index}Content`));
+        panes.forEach((i, v) => {
           if ($(v).data('node')) {
             const attribs = $(v).data('node').split('[');
             const classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0]}"` : 'class="nav-link"';
