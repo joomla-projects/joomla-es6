@@ -10,6 +10,7 @@ namespace Joomla\Component\Redirect\Administrator\Controller;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Component\Redirect\Administrator\Helper\RedirectHelper;
@@ -59,8 +60,7 @@ class DisplayController extends BaseController
 			else
 			{
 				$redirectPluginId = RedirectHelper::getRedirectPluginId();
-				$link = \JHtml::_(
-					'link',
+				$link = HTMLHelper::_('link',
 					'#plugin' . $redirectPluginId . 'Modal',
 					\JText::_('COM_REDIRECT_SYSTEM_PLUGIN'),
 					'class="alert-link" data-toggle="modal" id="title-' . $redirectPluginId . '"'
