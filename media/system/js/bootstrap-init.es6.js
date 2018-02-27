@@ -21,7 +21,7 @@
 
     // Accordion
     if (accordion) {
-      $.each(accordion, (index, value) => {
+      Object.keys(accordion).map((index, value) => {
         $(`#${index}`).collapse({
           parent: value.parent,
           toggle: value.toggle,
@@ -38,21 +38,21 @@
 
     // Alert
     if (alert) {
-      $.each(alert, (index, value) => {
+      Object.keys(alert).map((index) => {
         $(`#${index}`).alert();
       });
     }
 
     // Button
     if (button) {
-      $.each(button, (index, value) => {
+      Object.keys(button).map((index) => {
         $(`#${index}`).button();
       });
     }
 
     // Carousel
     if (carousel) {
-      $.each(carousel, (index, value) => {
+      Object.keys(carousel).map((index, value) => {
         $(`#${index}`).carousel({
           interval: value.interval ? value.interval : 5000,
           pause: value.pause ? value.pause : 'hover',
@@ -62,14 +62,15 @@
 
     // Dropdown menu
     if (dropdown) {
-      $.each(dropdown, (index, value) => {
+      Object.keys(dropdown).map((index) => {
         $(`#${index}`).dropdown();
       });
     }
 
     // Modals
     if (modal.length) {
-      $.each($('.joomla-modal'), () => {
+      const joomlaModals = [].slice.call(document.querySelectorAll('.joomla-modal'));
+      joomlaModals.forEach((index) => {
         const $self = $(this);
         $self.on('show.bs.modal', () => {
           if ($self.data('url')) {
@@ -103,7 +104,7 @@
 
     // Popover
     if (popover) {
-      $.each(popover, (index, value) => {
+      Object.keys(popover).map((index, value) => {
         value.constraints = [value.constraints];
         $(index).popover(value);
       });
@@ -111,18 +112,20 @@
 
     // Scrollspy
     if (scrollspy) {
-      $.each(scrollspy, (index, value) => {
+      Object.keys(scrollspy).map((index, value) => {
         $(`#${index}`).scrollspy(value);
       });
     }
 
     // Tabs
     if (tabs) {
-      $.each(tabs, (index, value) => {
-
-        $.each($(`#${index}Content`).find('.tab-pane'), (i, v) => {
-          if ($(v).data('node')) {
-            const attribs = $(v).data('node').split('[');
+      Object.keys(tabs).map((index) => {
+        const joomlaTabs = document.querySelectorAll('.joomla-modal');
+        const panes = [].slice.call(joomlaTabs.querySelectorAll(`#${index}Content`));
+        // eslint-disable-next-line no-unused-vars
+        panes.forEach((index, value) => {
+          if ($(value).data('node')) {
+            const attribs = $(value).data('node').split('[');
             const classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0]}"` : 'class="nav-link"';
 
             $(`#${index}Tabs`).append(`<li class="nav-item"><a ${classLink} href="#${attribs[1]}" data-toggle="tab">${attribs[2]}</a></li>`);
@@ -133,7 +136,7 @@
 
     // Tooltip
     if (tooltip) {
-      $.each(tooltip, (index, value) => {
+      Object.keys(tooltip).map((index, value) => {
         // eslint-disable-next-line no-param-reassign
         value.constraints = [value.constraints];
         $(index).tooltip(value)
