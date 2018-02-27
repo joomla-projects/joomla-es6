@@ -20,9 +20,10 @@
     const tooltip = getOptions('bootstrap.tooltip');
 
     // Accordion
-    if (accordion) {
-      $.each(accordion, (index, value) => {
-        $(`#${index}`).collapse({
+    if (accordion) 
+      for (const key of Object.keys(accordion)) {
+        const value = obj[key];
+        $(`#${key}`).collapse({
           parent: value.parent,
           toggle: value.toggle,
         // eslint-disable-next-line no-new-func
@@ -33,7 +34,7 @@
           .on('hideme', new Function(value.onHide)())
           // eslint-disable-next-line no-new-func
           .on('hidden', new Function(value.onHidden)());
-      });
+      }
     }
 
     // Alert
