@@ -9,51 +9,51 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-;customElements.define('joomla-field-category', function (_HTMLElement) {
-	_inherits(_class, _HTMLElement);
+customElements.define('joomla-field-category', function (_HTMLElement) {
+  _inherits(_class, _HTMLElement);
 
-	function _class() {
-		_classCallCheck(this, _class);
+  function _class() {
+    _classCallCheck(this, _class);
 
-		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
+    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
 
-		_this.element = '';
-		Joomla.loadingLayer('load', document.body);
-		return _this;
-	}
+    _this.element = '';
+    Joomla.loadingLayer('load', document.body);
+    return _this;
+  }
 
-	_createClass(_class, [{
-		key: 'connectedCallback',
-		value: function connectedCallback() {
-			// Check if custom fields are enabled
-			if (this.getAttribute('custom-fields-enabled') !== 'true') {
-				return;
-			}
+  _createClass(_class, [{
+    key: 'connectedCallback',
+    value: function connectedCallback() {
+      // Check if custom fields are enabled
+      if (this.getAttribute('custom-fields-enabled') !== 'true') {
+        return;
+      }
 
-			this.element = this.querySelector('select');
-			this.categoryHasChanged = this.categoryHasChanged.bind(this);
+      this.element = this.querySelector('select');
+      this.categoryHasChanged = this.categoryHasChanged.bind(this);
 
-			if (!this.element.value !== this.getAttribute('custom-fields-cat-id')) {
-				this.element.value = this.getAttribute('custom-fields-cat-id');
-			}
+      if (!this.element.value !== this.getAttribute('custom-fields-cat-id')) {
+        this.element.value = this.getAttribute('custom-fields-cat-id');
+      }
 
-			this.element.addEventListener('change', this.categoryHasChanged);
-		}
-	}, {
-		key: 'categoryHasChanged',
-		value: function categoryHasChanged() {
-			if (this.element.value === parseInt(this.element.parentNode.getAttribute('custom-fields-cat-id'))) {
-				return;
-			}
+      this.element.addEventListener('change', this.categoryHasChanged);
+    }
+  }, {
+    key: 'categoryHasChanged',
+    value: function categoryHasChanged() {
+      if (this.element.value === parseInt(this.element.parentNode.getAttribute('custom-fields-cat-id'), 10)) {
+        return;
+      }
 
-			Joomla.loadingLayer('show', document.body);
+      Joomla.loadingLayer('show', document.body);
 
-			document.querySelector('input[name=task]').value = this.element.parentNode.getAttribute('custom-fields-section') + '.reload';
-			this.element.form.submit();
-		}
-	}]);
+      document.querySelector('input[name=task]').value = this.element.parentNode.getAttribute('custom-fields-section') + '.reload';
+      this.element.form.submit();
+    }
+  }]);
 
-	return _class;
+  return _class;
 }(HTMLElement));
 
 },{}]},{},[1]);

@@ -1,4 +1,4 @@
-; customElements.define('joomla-field-category', class extends HTMLElement {
+customElements.define('joomla-field-category', class extends HTMLElement {
   constructor() {
     super();
 
@@ -23,13 +23,13 @@
   }
 
   categoryHasChanged() {
-    if (this.element.value === parseInt(this.element.parentNode.getAttribute('custom-fields-cat-id'))) {
+    if (this.element.value === parseInt(this.element.parentNode.getAttribute('custom-fields-cat-id'), 10)) {
       return;
     }
 
     Joomla.loadingLayer('show', document.body);
 
-    document.querySelector('input[name=task]').value = this.element.parentNode.getAttribute('custom-fields-section') + '.reload';
+    document.querySelector('input[name=task]').value = `${this.element.parentNode.getAttribute('custom-fields-section')}.reload`;
     this.element.form.submit();
   }
 });
