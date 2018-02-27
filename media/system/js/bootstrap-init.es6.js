@@ -122,6 +122,7 @@
       Object.keys(tabs).map((index) => {
         const joomlaTabs = document.querySelectorAll('.joomla-modal');
         const panes = [].slice.call(joomlaTabs.querySelectorAll(`#${index}Content`));
+        // eslint-disable-next-line no-unused-vars
         panes.forEach((index, value) => {
           if ($(value).data('node')) {
             const attribs = $(value).data('node').split('[');
