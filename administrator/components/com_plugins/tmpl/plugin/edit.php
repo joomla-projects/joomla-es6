@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('behavior.formvalidator');
@@ -16,12 +18,17 @@ JHtml::_('behavior.keepalive');
 
 $this->fieldsets = $this->form->getFieldsets('params');
 
+$doc   = JFactory::getDocument();
 $input = JFactory::getApplication()->input;
 
 // In case of modal
 $isModal  = $input->get('layout') === 'modal' ? true : false;
 $layout   = $isModal ? 'modal' : 'edit';
 $tmpl     = $isModal || $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+
+$doc->addScriptOptions('extension_id', $this->item->extension_id);
+
+HTMLHelper::_('script', 'com_plugins/edit.min.js', ['relative' => true, 'version' => 'auto']);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_plugins&view=plugin&layout=' . $layout . $tmpl . '&extension_id=' . (int) $this->item->extension_id); ?>" method="post" name="adminForm" id="style-form" class="form-validate">
