@@ -19,10 +19,10 @@
       tabs = getOptions('bootstrap.tabs'),
       tooltip = getOptions('bootstrap.tooltip');
 
-    /** Accordion **/
+    // Accordion
     if (accordion) {
       $.each(accordion, (index, value) => {
-        $('#' + index).collapse(
+        $(`#${index}`).collapse(
           {
             parent: value.parent,
             toggle: value.toggle
@@ -34,24 +34,24 @@
       });
     }
 
-    /** Alert **/
+    // Alert
     if (alert) {
       $.each(alert, (index, value) => {
-        $('#' + index).alert();
+        $(`#${index}`).alert();
       });
     }
 
-    /** Button **/
+    // Button
     if (button) {
       $.each(button, (index, value) => {
-        $('#' + index).button();
+        $(`#${index}`).button();
       });
     }
 
-    /** Carousel **/
+    // Carousel
     if (carousel) {
       $.each(carousel, (index, value) => {
-        $('#' + index).carousel(
+        $(`#${index}`).carousel(
           {
             interval: value.interval ? value.interval : 5000,
             pause: value.pause ? value.pause : 'hover'
@@ -60,14 +60,14 @@
       });
     }
 
-    /** Dropdown menu **/
+    // Dropdown menu
     if (dropdown) {
       $.each(dropdown, (index, value) => {
-        $('#' + index).dropdown();
+        $(`#${index}`).dropdown();
       });
     }
 
-    /** Modals **/
+    // Modals
     if (modal.length) {
       $.each($('.joomla-modal'), () => {
         var $self = $(this);
@@ -101,7 +101,7 @@
       });
     }
 
-    /** Popover **/
+    // Popover
     if (popover) {
       $.each(popover, (index, value) => {
         value.constraints = [value.constraints];
@@ -109,38 +109,43 @@
       });
     }
 
-    /** Scrollspy **/
+    //Scrollspy
     if (scrollspy) {
       $.each(scrollspy, (index, value) => {
-        $('#' + index).scrollspy(value);
+        $(`#${index}`).scrollspy(value);
       });
     }
 
-    /** Tabs **/
+    // Tabs
     if (tabs) {
       $.each(tabs, (index, value) => {
 
-        $.each($('#' + index + 'Content').find('.tab-pane'), (i, v) => {
+        $.each($(`#${index}Content`).find('.tab-pane'), (i, v) => {
           if ($(v).data('node')) {
-            var attribs = $(v).data('node').split('['),
-              classLink = (attribs[0] != '') ? 'class="nav-link ' + attribs[0] + '"' : 'class="nav-link"';
+            const attribs = $(v).data('node').split('['),
+              classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0] }"` : `class="nav-link"`;
 
-            $('#' + index + 'Tabs').append('<li class="nav-item"><a ' + classLink + ' href="#' + attribs[1] + '" data-toggle="tab">' + attribs[2] + '</a></li>');
+            $(`#${index}Tabs`).append(`<li class="nav-item"><a ${classLink} href="#${attribs[1]}" data-toggle="tab">${attribs[2]}</a></li>`);
           }
         });
       });
     }
 
-    /** Tooltip **/
+    // Tooltip
     if (tooltip) {
       $.each(tooltip, (index, value) => {
+        // eslint-disable-next-line no-param-reassign
         value.constraints = [value.constraints];
         $(index).tooltip(value)
-          .on("show.bs.tooltip", new Function(value.onShow)())
-          .on("shown.bs.tooltip", new Function(value.onShown)())
-          .on("hide.bs.tooltip", new Function(value.onHide)())
-          .on("hidden.bs.tooltip", new Function(value.onHidden)());
+          // eslint-disable-next-line no-new-func
+          .on('show.bs.tooltip', new Function(value.onShow)())
+          // eslint-disable-next-line no-new-func
+          .on('shown.bs.tooltip', new Function(value.onShown)())
+          // eslint-disable-next-line no-new-func
+          .on('hide.bs.tooltip', new Function(value.onHide)())
+          // eslint-disable-next-line no-new-func
+          .on('hidden.bs.tooltip', new Function(value.onHidden)());
       });
     }
   });
-})(document, Joomla.getOptions, jQuery);
+})(document, Joomla.getOptions, window.jQuery);
