@@ -119,12 +119,12 @@
 
     // Tabs
     if (tabs) {
-      Object.keys(tabs).map((index, value) => {
+      Object.keys(tabs).map((index) => {
         const joomlaTabs = document.querySelectorAll('.joomla-modal');
         const panes = [].slice.call(joomlaTabs.querySelectorAll(`#${index}Content`));
-        panes.forEach((i, v) => {
-          if ($(v).data('node')) {
-            const attribs = $(v).data('node').split('[');
+        panes.forEach((index, value) => {
+          if ($(value).data('node')) {
+            const attribs = $(value).data('node').split('[');
             const classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0]}"` : 'class="nav-link"';
 
             $(`#${index}Tabs`).append(`<li class="nav-item"><a ${classLink} href="#${attribs[1]}" data-toggle="tab">${attribs[2]}</a></li>`);
