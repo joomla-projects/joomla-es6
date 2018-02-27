@@ -838,6 +838,28 @@ Joomla = {
   }
 };
 
+/**
+ * Custom Events polyfill
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+ * 
+ * since __DEPLOY_VERSION__
+ */
+(function () {
+  if (typeof window.CustomEvent === 'function') {
+    return false;
+  }
+
+  CustomEvent = (event, params) => {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    const evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return evt;
+  }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})();
 
 /**
  * Joomla! Custom events
@@ -879,8 +901,6 @@ Joomla = {
    * @since   4.0.0
    */
   Joomla.Event.dispatch = (element, name, params) => {
-    let event;
-
     if (typeof element === 'string') {
       params = name;
       name = element;
@@ -889,25 +909,18 @@ Joomla = {
 
     params = params || {};
 
-    if (window.CustomEvent && typeof (window.CustomEvent) === 'function') {
-      event = new CustomEvent(name, {
-        detail: params,
-        bubbles: true,
-        cancelable: true
-      });
-    }
-    // IE trap
-    else {
-      event = document.createEvent('Event');
-      event.initEvent(name, true, true);
-      event.detail = params;
-    }
+    const event = new CustomEvent(name, {
+      detail: params,
+      bubbles: true,
+      cancelable: true
+    });
 
     element.dispatchEvent(event);
   };
 
   /**
-   * Once listener. Add EventListener to the Element and auto-remove it after the event was dispatched.
+   * Once listener. Add EventListener to the Element and auto-remove 
+   * it after the event was dispatched.
    *
    * @param {HTMLElement}  element   DOM element
    * @param {String}       name      The event name
@@ -918,7 +931,7 @@ Joomla = {
   Joomla.Event.listenOnce = (element, name, callback) => {
     const onceCallback = (event) => {
       element.removeEventListener(name, onceCallback);
-      return callback.call(element, event)
+      return callback.call(element, event);
     };
 
     element.addEventListener(name, onceCallback);
@@ -928,6 +941,6 @@ Joomla = {
 /**
  * Load any web components and any polyfills required
  */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   Joomla.WebComponents();
 });
