@@ -43,8 +43,6 @@ class NewsfeedField extends FormField
 		$allowClear  = ((string) $this->element['clear'] != 'false');
 		$allowSelect = ((string) $this->element['select'] != 'false');
 
-		$doc = \JFactory::getDocument();
-
 		// Load language
 		Factory::getLanguage()->load('com_newsfeeds', JPATH_ADMINISTRATOR);
 
@@ -70,7 +68,7 @@ class NewsfeedField extends FormField
 
 			if (!isset($scriptSelect[$this->id]))
 			{
-				$doc->addScriptOptions('newsfeed_id', $this->id);
+				Factory::getDocument()->addScriptOptions('newsfeed_id', $this->id);
 				HTMLHelper::_('script', 'com_newsfeeds/select-newsfeed.min.js', ['relative' => true, 'version' => 'auto']);
 
 				$scriptSelect[$this->id] = true;
