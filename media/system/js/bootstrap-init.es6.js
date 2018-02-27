@@ -51,12 +51,10 @@
     // Carousel
     if (carousel) {
       $.each(carousel, (index, value) => {
-        $(`#${index}`).carousel(
-          {
+        $(`#${index}`).carousel({
             interval: value.interval ? value.interval : 5000,
-            pause: value.pause ? value.pause : 'hover'
-          }
-        );
+            pause: value.pause ? value.pause : 'hover',
+          });
       });
     }
 
@@ -70,31 +68,31 @@
     // Modals
     if (modal.length) {
       $.each($('.joomla-modal'), () => {
-        var $self = $(this);
+        const $self = $(this);
         $self.on('show.bs.modal', () => {
           if ($self.data('url')) {
-            var modalBody = $self.find('.modal-body');
+            const modalBody = $self.find('.modal-body');
             modalBody.find('iframe').remove();
             modalBody.prepend($self.data('iframe'));
           }
         }).on('shown.bs.modal', () => {
-          var modalHeight = $('div.modal:visible').outerHeight(true),
-            modalHeaderHeight = $('div.modal-header:visible').outerHeight(true),
-            modalBodyHeightOuter = $('div.modal-body:visible').outerHeight(true),
-            modalBodyHeight = $('div.modal-body:visible').height(),
-            modalFooterHeight = $('div.modal-footer:visible').outerHeight(true),
-            padding = $self.offsetTop,
-            maxModalHeight = ($(window).height() - (padding * 2)),
-            modalBodyPadding = (modalBodyHeightOuter - modalBodyHeight),
-            maxModalBodyHeight = maxModalHeight - (modalHeaderHeight + modalFooterHeight + modalBodyPadding);
+          const modalHeight = $('div.modal:visible').outerHeight(true);
+          const modalHeaderHeight = $('div.modal-header:visible').outerHeight(true);
+          const modalBodyHeightOuter = $('div.modal-body:visible').outerHeight(true);
+          const modalBodyHeight = $('div.modal-body:visible').height();
+          const modalFooterHeight = $('div.modal-footer:visible').outerHeight(true);
+          const padding = $self.offsetTop;
+          const maxModalHeight = ($(window).height() - (padding * 2));
+          const modalBodyPadding = (modalBodyHeightOuter - modalBodyHeight);
+          const maxModalBodyHeight = maxModalHeight - (modalHeaderHeight + modalFooterHeight + modalBodyPadding);
           if ($self.data('url')) {
-            var iframeHeight = $('.iframe').height();
+            const iframeHeight = $('.iframe').height();
             if (iframeHeight > maxModalBodyHeight) {
               $('.modal-body').css({ 'max-height': maxModalBodyHeight, 'overflow-y': 'auto' });
               $('.iframe').css('max-height', maxModalBodyHeight - modalBodyPadding);
             }
           }
-          }).on('hide.bs.modal', () => {
+        }).on('hide.bs.modal', () => {
           $('.modal-body').css({ 'max-height': 'initial', 'overflow-y': 'initial' });
           $('.modalTooltip').tooltip('dispose');
         });
@@ -109,7 +107,7 @@
       });
     }
 
-    //Scrollspy
+    // Scrollspy
     if (scrollspy) {
       $.each(scrollspy, (index, value) => {
         $(`#${index}`).scrollspy(value);
@@ -122,8 +120,8 @@
 
         $.each($(`#${index}Content`).find('.tab-pane'), (i, v) => {
           if ($(v).data('node')) {
-            const attribs = $(v).data('node').split('['),
-              classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0] }"` : `class="nav-link"`;
+            const attribs = $(v).data('node').split('[');
+            const classLink = (attribs[0] !== '') ? `class="nav-link ${attribs[0]}"` : `class="nav-link"`;
 
             $(`#${index}Tabs`).append(`<li class="nav-item"><a ${classLink} href="#${attribs[1]}" data-toggle="tab">${attribs[2]}</a></li>`);
           }
