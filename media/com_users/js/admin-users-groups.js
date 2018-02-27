@@ -10,14 +10,14 @@
 
 Joomla = window.Joomla || {};
 
-(function (Joomla) {
+(function () {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
     Joomla.submitbutton = function (task) {
       if (task === 'groups.delete') {
         var cids = document.getElementsByName('cid[]');
-        for (var i = 0; i < cids.length; i++) {
+        for (var i = 0; i < cids.length; i += 1) {
           if (cids[i].checked && cids[i].parentNode.getAttribute('data-usercount') !== 0) {
             if (window.confirm(Joomla.JText._('COM_USERS_GROUPS_CONFIRM_DELETE'))) {
               Joomla.submitform(task);
@@ -30,4 +30,4 @@ Joomla = window.Joomla || {};
       return false;
     };
   });
-})(Joomla);
+})();

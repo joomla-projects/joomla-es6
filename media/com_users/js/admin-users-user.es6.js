@@ -5,7 +5,7 @@
 
 Joomla = window.Joomla || {};
 
-((Joomla) => {
+(() => {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +15,7 @@ Joomla = window.Joomla || {};
         const selectedPane = `com_users_twofactor_${method.value}`;
         const twoFactorForms = document.querySelectorAll('#com_users_twofactor_forms_container > div');
         twoFactorForms.forEach((value) => {
-          const id = value.id;
+          const { id } = value;
           if (id !== selectedPane) {
             document.getElementById(id).style.display = 'none';
           } else {
@@ -25,4 +25,4 @@ Joomla = window.Joomla || {};
       }
     };
   });
-})(Joomla);
+})();

@@ -10,7 +10,7 @@
 
 Joomla = window.Joomla || {};
 
-(function (Joomla) {
+(function () {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -21,6 +21,7 @@ Joomla = window.Joomla || {};
         var twoFactorForms = document.querySelectorAll('#com_users_twofactor_forms_container > div');
         twoFactorForms.forEach(function (value) {
           var id = value.id;
+
           if (id !== selectedPane) {
             document.getElementById(id).style.display = 'none';
           } else {
@@ -30,4 +31,4 @@ Joomla = window.Joomla || {};
       }
     };
   });
-})(Joomla);
+})();
