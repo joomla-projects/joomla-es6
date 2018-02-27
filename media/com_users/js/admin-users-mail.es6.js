@@ -17,7 +17,7 @@
       // do field validation
       if (form.jform_subject.value === '') {
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_FILL_IN_THE_SUBJECT'));
-      } else if (getSelectedValue('adminForm', 'jform[group]') < 0) {
+      } else if (Joomla.getSelectedValue('adminForm', 'jform[group]') < 0) {
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_SELECT_A_GROUP'));
       } else if (form.jform_message.value === '') {
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_FILL_IN_THE_MESSAGE'));
