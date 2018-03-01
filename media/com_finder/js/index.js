@@ -21,7 +21,7 @@ Joomla = window.Joomla || {};
         } else {
           return false;
         }
-      }if (pressbutton === 'ndex.delete') {
+      }if (pressbutton === 'index.delete') {
         if (window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_DELETE_PROMPT'))) {
           Joomla.submitform(pressbutton);
         } else {
