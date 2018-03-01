@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('behavior.formvalidator');
@@ -22,23 +25,8 @@ JHtml::_('stylesheet', 'com_languages/overrider.css', array('version' => 'auto',
 JHtml::_('behavior.core');
 JHtml::_('jquery.framework');
 JHtml::_('script', 'com_languages/overrider.min.js', array('version' => 'auto', 'relative' => true));
-
-JFactory::getDocument()->addScriptDeclaration('
-	jQuery(document).ready(function($) {
-		$("#jform_searchstring").on("focus", function() {
-			if (!Joomla.overrider.states.refreshed)
-			{
-				var expired = "' . $expired . '";
-				if (expired)
-				{
-					Joomla.overrider.refreshCache();
-					Joomla.overrider.states.refreshed = true;
-				}
-			}
-			$(this).removeClass("invalid");
-		});
-	});
-');
+HTMLHelper::_('script', 'com_languages/admin-override-refresh-searchstring.js', ['relative' => true, 'version' => 'auto']);
+Factory::getDocument()->addScriptOptions('search-string-expired', $expired);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_languages&id=' . $this->item->key); ?>" method="post" name="adminForm" id="override-form" class="form-validate">
