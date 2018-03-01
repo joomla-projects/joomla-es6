@@ -729,7 +729,7 @@ Joomla = {
     /* Check if ES6 then apply the shim */
     const checkES6 = () => {
       try {
-        new Function("(a = 0) => a");
+        new Function('(a = 0) => a');
         return true;
       }
       catch (err) {
@@ -791,11 +791,11 @@ Joomla = {
     }
 
     if (polyfills.length) {
-      let name = "core.min.js";
+      let name = 'core.min.js';
       let script = document.querySelector('script[src*="' + name + '"]');
 
       if (!script) {
-        name = "core.js";
+        name = 'core.js';
         script = document.querySelector('script[src*="' + name + '"]')
       }
 
@@ -867,7 +867,7 @@ Joomla = {
  * @since  4.0.0
  */
 ((window, Joomla) => {
-  "use strict";
+  'use strict';
 
   if (Joomla.Event) {
     return;
@@ -879,24 +879,32 @@ Joomla = {
    * Dispatch custom event.
    *
    * An event name convention:
-   *    The event name has at least two part, separated ":", eg `foo:bar`. Where the first part is an "event supporter",
-   *    and second part is the event name which happened.
-   *    Which is allow us to avoid possible collisions with another scripts and native DOM events.
+   *    The event name has at least two part, separated ":", eg `foo:bar`.
+   *    Where the first part is an "event supporter" and second part is the 
+   *    event name which happened.
+   *    Which allow us to avoid possible collisions with other scripts
+   *    and native DOM events.
    *    Joomla! CMS standard events should start from `joomla:`.
    *
    * Joomla! events:
-   *    `joomla:updated`  Dispatch it over the changed container, example after the content was updated via ajax
+   *    `joomla:updated`  Dispatch it over the changed container,
+   *      example after the content was updated via ajax
    *    `joomla:removed`  The container was removed
    *
-   * @param {HTMLElement|string}  element  DOM element, the event target. Or the event name, then the target will be a Window
-   * @param {String|Object}       name     The event name, or an optional parameters in case when "element" is an event name
-   * @param {Object}              params   An optional parameters. Allow to send a custom data through the event.
+   * @param {HTMLElement|string}  element  DOM element, the event target. 
+   *    Or the event name, then the target will be a Window
+   * @param {String|Object}       name     The event name,
+   *    or an optional parameters in case when "element" is an event name
+   * @param {Object}              params   An optional parameters.
+   *    Allow to send a custom data through the event.
    *
    * @example
    *
-   *  Joomla.Event.dispatch(myElement, 'joomla:updated', {for: 'bar', foo2: 'bar2'}); // Will dispatch event to myElement
+   *  Joomla.Event.dispatch(myElement, 'joomla:updated', {for: 'bar', foo2: 'bar2'});
+   *  Will dispatch event to myElement
    *  or:
-   *  Joomla.Event.dispatch('joomla:updated', {for: 'bar', foo2: 'bar2'}); // Will dispatch event to Window
+   *  Joomla.Event.dispatch('joomla:updated', {for: 'bar', foo2: 'bar2'});
+   *  Will dispatch event to Window
    *
    * @since   4.0.0
    */
@@ -912,7 +920,7 @@ Joomla = {
     const event = new CustomEvent(name, {
       detail: params,
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     });
 
     element.dispatchEvent(event);
