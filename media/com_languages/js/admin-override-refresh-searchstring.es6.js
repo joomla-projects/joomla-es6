@@ -6,7 +6,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const searchStringInput = [].slice.call(document.querySelectorAll('#jform_searchstring'));
 
-
   searchStringInput.forEach.call(document.querySelectorAll('#jform_searchstring'), (el) => {
     el.addEventListener('focus', (event) => {
       if (!Joomla.overrider.states.refreshed) {
