@@ -4,7 +4,10 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  [].forEach.call(document.querySelectorAll('#jform_searchstring'), (el) => {
+  const searchStringInput = [].slice.call(document.querySelectorAll('#jform_searchstring'));
+
+
+  searchStringInput.forEach.call(document.querySelectorAll('#jform_searchstring'), (el) => {
     el.addEventListener('focus', (event) => {
       if (!Joomla.overrider.states.refreshed) {
         const expired = Joomla.getOptions('search-string-expired');
