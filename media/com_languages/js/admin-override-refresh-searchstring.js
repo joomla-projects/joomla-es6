@@ -9,18 +9,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  var searchStringInput = [].slice.call(document.querySelectorAll('#jform_searchstring'));
-
-  searchStringInput.forEach.call(document.querySelectorAll('#jform_searchstring'), function (el) {
-    el.addEventListener('focus', function (event) {
-      if (!Joomla.overrider.states.refreshed) {
-        var expired = Joomla.getOptions('search-string-expired');
-        if (expired) {
-          Joomla.overrider.refreshCache();
-          Joomla.overrider.states.refreshed = true;
-        }
+  document.getElementById('jform_searchstring').addEventListener('focus', function (event) {
+    if (!Joomla.overrider.states.refreshed) {
+      var expired = Joomla.getOptions('search-string-expired');
+      if (expired) {
+        Joomla.overrider.refreshCache();
+        Joomla.overrider.states.refreshed = true;
       }
-      event.currentTarget.removeClass('invalid');
-    }, false);
-  });
+    }
+    event.currentTarget.classList.remove('invalid');
+  }, false);
 });

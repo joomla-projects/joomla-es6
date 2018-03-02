@@ -4,18 +4,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const searchStringInput = [].slice.call(document.querySelectorAll('#jform_searchstring'));
-
-  searchStringInput.forEach.call(document.querySelectorAll('#jform_searchstring'), (el) => {
-    el.addEventListener('focus', (event) => {
-      if (!Joomla.overrider.states.refreshed) {
-        const expired = Joomla.getOptions('search-string-expired');
-        if (expired) {
-          Joomla.overrider.refreshCache();
-          Joomla.overrider.states.refreshed = true;
-        }
+  document.getElementById('jform_searchstring').addEventListener('focus', (event) => {
+    if (!Joomla.overrider.states.refreshed) {
+      const expired = Joomla.getOptions('search-string-expired');
+      if (expired) {
+        Joomla.overrider.refreshCache();
+        Joomla.overrider.states.refreshed = true;
       }
-      event.currentTarget.removeClass('invalid');
-    }, false);
-  });
+    }
+    event.currentTarget.classList.remove('invalid');
+  }, false);
 });
