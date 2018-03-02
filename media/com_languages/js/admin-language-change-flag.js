@@ -8,18 +8,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 document.addEventListener('DOMContentLoaded', function () {
-  [].slice.call(document.querySelectorAll('#jform_image')).forEach(function (el) {
-    el.addEventListener('change', function (event) {
-      var flagSelectedValue = event.currentTarget.value;
-      var flagimage = document.getElementById('flag').querySelector('img');
-      var src = Joomla.getOptions('juri_root') + '/media/mod_languages/images/' + flagSelectedValue + '.gif';
-      if (flagSelectedValue) {
-        flagimage.setAttribute('src', src);
-        flagimage.setAttribute('alt', flagSelectedValue);
-      } else {
-        flagimage.removeAttribute('src');
-        flagimage.setAttribute('alt', '');
-      }
-    }, false);
-  });
+  document.getElementById('jform_image').addEventListener('change', function (event) {
+    var flagSelectedValue = event.currentTarget.value;
+    var flagimage = document.getElementById('flag').querySelector('img');
+    var src = Joomla.getOptions('juri_root') + '/media/mod_languages/images/' + flagSelectedValue + '.gif';
+    if (flagSelectedValue) {
+      flagimage.setAttribute('src', src);
+      flagimage.setAttribute('alt', flagSelectedValue);
+    } else {
+      flagimage.removeAttribute('src');
+      flagimage.setAttribute('alt', '');
+    }
+  }, false);
 });
