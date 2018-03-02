@@ -23,7 +23,7 @@
           button.addEventListener('change', (e) => {
             e.preventDefault();
             const task = e.target.getAttribute(buttonDataSelector);
-            if (task == 'permissions.apply') {
+            if (task === 'permissions.apply') {
               this.sendPermissions(e);
             }
           });
@@ -33,17 +33,17 @@
 
     sendPermissions(event) {
       const target = event.target;
-      //set the icon while storing the values
+      // Set the icon while storing the values
       const icon = document.getElementById('icon_' + target.id);
       icon.removeAttribute('class');
       icon.setAttribute('class', 'fa fa-spinner fa-spin');
 
-      //get values add prepare GET-Parameter
+      // Get values add prepare GET-Parameter
       let asset = 'not';
-      let component = this.getUrlParam('component');
-      let extension = this.getUrlParam('extension');
-      let option = this.getUrlParam('option');
-      let view = this.getUrlParam('view');
+      let component = getUrlParam('component');
+      let extension = getUrlParam('extension');
+      let option = getUrlParam('option');
+      let view = getUrlParam('view');
       let title = component;
       let value = target.value;
       let context = '';
@@ -53,22 +53,22 @@
         context = context.split('.')[0];
       }
 
-      if (option === 'com_config' && component == false && extension == false) {
+      if (option === 'com_config' && component === false && extension === false) {
         asset = 'root.1';
-      } else if (extension == false && view === 'component') {
+      } else if (extension === false && view === 'component') {
         asset = component;
       } else if (context) {
         if (view === 'group') {
-          asset = context + '.fieldgroup.' + this.getUrlParam('id');
+          asset = context + '.fieldgroup.' + getUrlParam('id');
         } else {
-          asset = context + '.field.' + this.getUrlParam('id');
+          asset = context + '.field.' + getUrlParam('id');
         }
         title = document.getElementById('jform_title').value;
-      } else if (extension != false && view != false) {
-        asset = extension + '.' + view + '.' + this.getUrlParam('id');
+      } else if (extension !== false && view !== false) {
+        asset = extension + '.' + view + '.' + getUrlParam('id');
         title = document.getElementById('jform_title').value;
-      } else if (extension == false && view != false) {
-        asset = option + '.' + view + '.' + this.getUrlParam('id');
+      } else if (extension === false && view !== false) {
+        asset = option + '.' + view + '.' + getUrlParam('id');
         title = document.getElementById('jform_title').value;
       }
 
@@ -93,7 +93,7 @@
         data: JSON.stringify(permissionData),
         perform: true,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         onSuccess: (response, xhr) => {
           try {
@@ -135,13 +135,13 @@
       });
     }
 
-    getUrlParam(variable) {
+    const getUrlParam = (variable) => {
       const query = window.location.search.substring(1);
       const vars = query.split('&');
 
       for (let i = 0; i < vars.length; i += 1) {
-        let pair = vars[i].split('=');
-        if (pair[0] == variable) {
+        const pair = vars[i].split('=');
+        if (pair[0] === variable) {
           return pair[1];
         }
       }
@@ -152,3 +152,4 @@
   customElements.define('joomla-field-permissions', JoomlaFieldPermissions);
 
 })(customElements, Joomla);
+
