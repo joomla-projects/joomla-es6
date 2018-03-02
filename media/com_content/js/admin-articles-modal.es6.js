@@ -39,14 +39,15 @@
     // Listen for click event
       elements[i].addEventListener('click', (event) => {
         event.preventDefault();
-        const functionName = event.target.getAttribute('data-function');
+        const { target } = event;
+        const functionName = target.getAttribute('data-function');
 
         if (functionName === 'jSelectArticle') {
           // Used in xtd_contacts
-          window[functionName](event.target.getAttribute('data-id'), event.target.getAttribute('data-title'), event.target.getAttribute('data-cat-id'), null, event.target.getAttribute('data-uri'), event.target.getAttribute('data-language'));
+          window[functionName](target.getAttribute('data-id'), target.getAttribute('data-title'), target.getAttribute('data-cat-id'), null, target.getAttribute('data-uri'), target.getAttribute('data-language'));
         } else {
           // Used in com_menus
-          window.parent[functionName](event.target.getAttribute('data-id'), event.target.getAttribute('data-title'), event.target.getAttribute('data-cat-id'), null, event.target.getAttribute('data-uri'), event.target.getAttribute('data-language'));
+          window.parent[functionName](target.getAttribute('data-id'), target.getAttribute('data-title'), target.getAttribute('data-cat-id'), null, target.getAttribute('data-uri'), target.getAttribute('data-language'));
         }
       });
     }
