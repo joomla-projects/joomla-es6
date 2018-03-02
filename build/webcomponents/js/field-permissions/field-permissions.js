@@ -24,14 +24,14 @@
             e.preventDefault();
             const task = e.target.getAttribute(buttonDataSelector);
             if (task === 'permissions.apply') {
-              this.sendPermissions(e);
+              sendPermissions(e);
             }
           });
         });
       }
     }
 
-    sendPermissions(event) {
+    const sendPermissions = (event) => {
       const target = event.target;
       // Set the icon while storing the values
       const icon = document.getElementById('icon_' + target.id);
@@ -133,7 +133,7 @@
           icon.setAttribute('class', 'fa fa-times');
         }
       });
-    }
+    };
 
     const getUrlParam = (variable) => {
       const query = window.location.search.substring(1);
@@ -146,7 +146,7 @@
         }
       }
       return false;
-    }
+    };
   }
 
   customElements.define('joomla-field-permissions', JoomlaFieldPermissions);
