@@ -2,14 +2,19 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_fields
- * 
+ *
  * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 JHtml::_('formbehavior.chosen', '.advancedSelect');
-JFactory::getDocument()->addScriptDeclaration(
+
+HTMLHelper::_('script', 'com_fields/admin-fields-default-batch.js', ['relative' => true, 'version' => 'auto']);
+
+/*JFactory::getDocument()->addScriptDeclaration(
 	'
 		jQuery(document).ready(function($){
 			if ($("#batch-group-id").length){var batchSelector = $("#batch-group-id");}
@@ -25,7 +30,7 @@ JFactory::getDocument()->addScriptDeclaration(
 			}
 		});
 	'
-);
+);*/
 
 $context   = $this->escape($this->state->get('filter.context'));
 ?>
