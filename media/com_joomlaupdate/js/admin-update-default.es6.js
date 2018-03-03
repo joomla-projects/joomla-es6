@@ -7,10 +7,11 @@ Joomla = window.Joomla || {};
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.joomlaupdate_password = Joomla.getOptions('joomlaupdate_password');
-  window.joomlaupdate_totalsize = Joomla.getOptions('joomlaupdate_totalsize');
-  window.joomlaupdate_ajax_url = Joomla.getOptions('joomlaupdate_ajax_url');
-  window.joomlaupdate_return_url = Joomla.getOptions('joomlaupdate_return_url');
+  const JoomlaUpdateOptions = Joomla.getOptions('joomlaupdate');
+  window.joomlaupdate_password = JoomlaUpdateOptions.password;
+  window.joomlaupdate_totalsize = JoomlaUpdateOptions.totalsize;
+  window.joomlaupdate_ajax_url = JoomlaUpdateOptions.ajax_url;
+  window.joomlaupdate_return_url = JoomlaUpdateOptions.return_url;
   window.pingExtract();
 });
 

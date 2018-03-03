@@ -26,10 +26,15 @@ $returnUrl = 'index.php?option=com_joomlaupdate&task=update.finalise&' . JFactor
 
 HTMLHelper::_('script', 'com_joomlaupdate/admin-update-default.js', ['relative' => true, 'version' => 'auto']);
 
-Factory::getDocument()->addScriptOptions('joomlaupdate_password', $password);
-Factory::getDocument()->addScriptOptions('joomlaupdate_totalsize', $filesize);
-Factory::getDocument()->addScriptOptions('joomlaupdate_ajax_url', $ajaxUrl);
-Factory::getDocument()->addScriptOptions('joomlaupdate_return_url', $returnUrl);
+Factory::getDocument()->addScriptOptions(
+	'joomlaupdate',
+	[
+		'password' => $password,
+		'totalsize' => $filesize,
+		'ajax_url' => $ajaxUrl,
+		'return_url' => $returnUrl,
+	]
+);
 ?>
 
 <p class="nowarning"><?php echo JText::_('COM_JOOMLAUPDATE_VIEW_UPDATE_INPROGRESS'); ?></p>
