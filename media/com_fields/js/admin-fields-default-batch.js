@@ -9,8 +9,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  var batchSelector = document.querySelector('#batch-group-id');
-  var batchCopyMove = document.querySelector('#batch-copy-move');
+  var batchSelector = document.getElementById('batch-group-id');
+  var batchCopyMove = document.getElementById('batch-copy-move');
   batchCopyMove.style.display = 'none';
 
   batchSelector.addEventListener('change', function () {
