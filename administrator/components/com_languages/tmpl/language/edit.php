@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -16,6 +17,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.tabstate');
 
+Factory::getDocument()->addScriptOptions('juri_root', JUri::root(true));
 HTMLHelper::_('script', 'com_languages/admin-language-change-flag.js', ['relative' => true, 'version' => 'auto']);
 ?>
 
@@ -37,7 +39,7 @@ HTMLHelper::_('script', 'com_languages/admin-language-change-flag.js', ['relativ
 				</div>
 				<div class="controls">
 					<?php echo $this->form->getInput('image'); ?>
-					<span id="flag" data-path="<?php echo JUri::root(true) . '/media/mod_languages/images/'; ?>">
+					<span id="flag">
 						<?php echo JHtml::_('image', 'mod_languages/' . $this->form->getValue('image') . '.gif', $this->form->getValue('image'), null, true); ?>
 					</span>
 				</div>

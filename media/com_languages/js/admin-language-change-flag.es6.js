@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('jform_image').addEventListener('change', (event) => {
     const flagSelectedValue = event.currentTarget.value;
     const flagimage = document.getElementById('flag').querySelector('img');
-    const src = `${document.getElementById('flag').dataset.path}${flagSelectedValue}.gif`;
-
+    const src = `${Joomla.getOptions('juri_root')}/media/mod_languages/images/${flagSelectedValue}.gif`;
     if (flagSelectedValue) {
       flagimage.setAttribute('src', src);
       flagimage.setAttribute('alt', flagSelectedValue);
