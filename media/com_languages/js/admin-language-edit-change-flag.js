@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('jform_image').addEventListener('change', function (event) {
     var flagSelectedValue = event.currentTarget.value;
     var flagimage = document.getElementById('flag').querySelector('img');
-    var src = Joomla.getOptions('juri_root') + '/media/mod_languages/images/' + flagSelectedValue + '.gif';
+    var src = Joomla.getOptions('system.paths').rootFull + '/media/mod_languages/images/' + flagSelectedValue + '.gif';
+
     if (flagSelectedValue) {
       flagimage.setAttribute('src', src);
       flagimage.setAttribute('alt', flagSelectedValue);

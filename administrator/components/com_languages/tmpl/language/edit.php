@@ -17,8 +17,8 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.tabstate');
 
-Factory::getDocument()->addScriptOptions('juri_root', JUri::root(true));
-HTMLHelper::_('script', 'com_languages/admin-language-change-flag.js', ['relative' => true, 'version' => 'auto']);
+//Factory::getDocument()->addScriptOptions('system.paths.rootFull', JUri::root(true));
+HTMLHelper::_('script', 'com_languages/admin-language-edit-change-flag.js', ['relative' => true, 'version' => 'auto']);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_languages&view=language&layout=edit&lang_id=' . (int) $this->item->lang_id); ?>" method="post" name="adminForm" id="language-form" class="form-validate">
