@@ -19,4 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     event.currentTarget.classList.remove('invalid');
   }, false);
+
+  document.getElementById('more-results-button').addEventListener('click', function (event) {
+    Joomla.overrider.searchStrings(Joomla.overrider.states.more);
+  }, false);
 });
