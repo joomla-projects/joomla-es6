@@ -34,7 +34,7 @@
 
     var tag = '<a ' + hreflang + ' href="' + link + '">' + title + '</a>';
     window.parent.Joomla.editors.instances[editor].replaceSelection(tag);
-    window.parent.jModalClose();
+    // @TODO Close the modal
     return true;
   };
 
