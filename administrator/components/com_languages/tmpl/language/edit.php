@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -17,7 +16,6 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.tabstate');
 
-//Factory::getDocument()->addScriptOptions('system.paths.rootFull', JUri::root(true));
 HTMLHelper::_('script', 'com_languages/admin-language-edit-change-flag.js', ['relative' => true, 'version' => 'auto']);
 ?>
 
