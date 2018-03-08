@@ -11,7 +11,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('jform_searchstring').addEventListener('focus', function (event) {
     if (!Joomla.overrider.states.refreshed) {
-      var expired = document.getElementById('overrider-spinner').dataset.searchstringexpired;
+      var expired = document.getElementById('overrider-spinner').getAttribute('data-searchstringexpired');
       if (expired) {
         Joomla.overrider.refreshCache();
         Joomla.overrider.states.refreshed = true;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     event.currentTarget.classList.remove('invalid');
   }, false);
 
-  document.getElementById('more-results-button').addEventListener('click', function (event) {
+  document.getElementById('more-results-button').addEventListener('click', function () {
     Joomla.overrider.searchStrings(Joomla.overrider.states.more);
   }, false);
 });
