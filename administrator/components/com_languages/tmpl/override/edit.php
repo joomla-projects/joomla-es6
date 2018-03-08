@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -25,8 +24,7 @@ JHtml::_('stylesheet', 'com_languages/overrider.css', array('version' => 'auto',
 JHtml::_('behavior.core');
 JHtml::_('jquery.framework');
 JHtml::_('script', 'com_languages/overrider.min.js', array('version' => 'auto', 'relative' => true));
-HTMLHelper::_('script', 'com_languages/admin-override-refresh-searchstring.js', ['relative' => true, 'version' => 'auto']);
-Factory::getDocument()->addScriptOptions('search-string-expired', $expired);
+HTMLHelper::_('script', 'com_languages/admin-override-edit-refresh-searchstring.js', ['relative' => true, 'version' => 'auto']);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_languages&id=' . $this->item->key); ?>" method="post" name="adminForm" id="override-form" class="form-validate">
@@ -126,7 +124,7 @@ Factory::getDocument()->addScriptOptions('search-string-expired', $expired);
 
 			<fieldset id="results-container" class="adminform">
 				<legend><?php echo JText::_('COM_LANGUAGES_VIEW_OVERRIDE_RESULTS_LEGEND'); ?></legend>
-				<div id="overrider-spinner" class="overrider-spinner text-center"><span class="fa fa-spinner fa-spin" aria-hidden="true"></span></div>
+				<div id="overrider-spinner" class="overrider-spinner text-center" data-searchstringexpired="<?php echo $expired; ?>"><span class="fa fa-spinner fa-spin" aria-hidden="true"></span></div>
 				<span id="more-results" class="mt-2">
 					<a href="javascript:Joomla.overrider.searchStrings(Joomla.overrider.states.more);" class="btn btn-secondary">
 						<span id="overrider-spinner-btn" class="overrider-spinner-btn fa fa-spinner fa-spin" aria-hidden="true"></span>
