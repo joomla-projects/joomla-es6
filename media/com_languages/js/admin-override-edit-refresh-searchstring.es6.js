@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     event.currentTarget.classList.remove('invalid');
   }, false);
 
-  document.getElementById('more-results-button').addEventListener('click', (event) => {
-	  Joomla.overrider.searchStrings(Joomla.overrider.states.more);
+  document.getElementById('more-results-button').addEventListener('click', () => {
+    Joomla.overrider.searchStrings(Joomla.overrider.states.more);
   }, false);
 });
 
