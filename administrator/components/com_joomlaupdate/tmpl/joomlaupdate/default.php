@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-
 /** @var \Joomla\Component\Joomlaupdate\Administrator\View\Joomlaupdate\Html $this */
 
 JHtml::_('jquery.framework');
@@ -23,8 +22,6 @@ JText::script('COM_JOOMLAUPDATE_VIEW_DEFAULT_EXTENSION_VERSION_MISSING');
 JText::script('COM_JOOMLAUPDATE_VIEW_DEFAULT_EXTENSION_WARNING_UNKNOWN');
 
 $latestJoomlaVersion = $this->updateInfo['latest'];
-
-Factory::getDocument()->addScriptOptions('joomlaTargetVersion', $latestJoomlaVersion);
 ?>
 
 <div id="joomlaupdate-wrapper" data-joomla-target-version="<?php echo $latestJoomlaVersion; ?>">
