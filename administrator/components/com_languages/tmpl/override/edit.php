@@ -125,7 +125,6 @@ HTMLHelper::_('script', 'com_languages/admin-override-edit-refresh-searchstring.
 			<fieldset id="results-container" class="adminform">
 				<legend><?php echo JText::_('COM_LANGUAGES_VIEW_OVERRIDE_RESULTS_LEGEND'); ?></legend>
 				<div id="overrider-spinner" class="overrider-spinner text-center" data-searchstringexpired="<?php echo $expired; ?>"><span class="fa fa-spinner fa-spin" aria-hidden="true"></span></div>
-
 				<span id="more-results" class="mt-2">
 					<a id="more-results-button" class="btn btn-secondary">
 						<span id="overrider-spinner-btn" class="overrider-spinner-btn fa fa-spinner fa-spin" aria-hidden="true"></span>
