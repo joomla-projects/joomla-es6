@@ -53,9 +53,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
     preview.height = canvas.height;
     preview.src = Joomla.MediaManager.Edit.current.contents;
 
-    // Update the width input box
-    document.getElementById('jform_rotate_angle').value = angle;
-
     // Update the height input box
     document.getElementById('jform_rotate_a').value = angle;
 
@@ -65,12 +62,17 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
   var initRotate = function initRotate() {
     var funct = function funct() {
-      // The listeners
-      document.getElementById('jform_rotate_angle').addEventListener('change', function (event) {
-        rotate(parseInt(event.target.value, 10));
-      });
+      // The number input listener
       document.getElementById('jform_rotate_a').addEventListener('input', function (event) {
         rotate(parseInt(event.target.value, 10));
+      });
+
+      // The 90 degree rotate buttons listeners
+      var elements = [].slice.call(document.querySelectorAll('#jform_rotate_distinct label'));
+      elements.forEach(function (element) {
+        element.addEventListener('click', function (event) {
+          rotate(parseInt(event.target.querySelector('input').value, 10));
+        });
       });
     };
     setTimeout(funct, 1000);
