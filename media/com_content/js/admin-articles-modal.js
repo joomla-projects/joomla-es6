@@ -21,7 +21,7 @@
     var hreflang = '';
     if (!Joomla.getOptions('xtd-articles')) {
       // Something went wrong!
-      window.parent.jModalClose();
+      // @TODO Close the modal
       return false;
     }
 
