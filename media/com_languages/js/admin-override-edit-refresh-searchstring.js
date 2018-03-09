@@ -11,7 +11,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('jform_searchstring').addEventListener('focus', function (event) {
     if (!Joomla.overrider.states.refreshed) {
-      var expired = document.getElementById('overrider-spinner').getAttribute('data-searchstringexpired');
+      var expired = document.getElementById('overrider-spinner').getAttribute('data-search-string-expired');
       if (expired) {
         Joomla.overrider.refreshCache();
         Joomla.overrider.states.refreshed = true;
