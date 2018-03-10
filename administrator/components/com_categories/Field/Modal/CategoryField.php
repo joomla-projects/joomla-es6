@@ -11,6 +11,7 @@ namespace Joomla\Component\Categories\Administrator\Field\Modal;
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Form\FormField;
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * Supports a modal category picker.
@@ -61,7 +62,8 @@ class CategoryField extends FormField
 
 		// Add the modal field script to the document head.
 		\JHtml::_('jquery.framework');
-		\JHtml::_('script', 'system/fields/modal-fields.min.js', array('version' => 'auto', 'relative' => true));
+		HTMLHelper::_('script', 'system/fields/modal-fields.min.js', array('version' => 'auto', 'relative' => true));
+		HTMLHelper::_('script', 'com_categories/admin-categories-field-modal.js', ['relative' => true, 'version' => 'auto']);
 
 		// Script to proxy the select modal function to the modal-fields.js file.
 		if ($allowSelect)
@@ -75,12 +77,6 @@ class CategoryField extends FormField
 
 			if (!isset($scriptSelect[$this->id]))
 			{
-				\JFactory::getDocument()->addScriptDeclaration("
-				function jSelectCategory_" . $this->id . "(id, title, object) {
-					window.processModalSelect('Category', '" . $this->id . "', id, title, '', object);
-				}
-				");
-
 				$scriptSelect[$this->id] = true;
 			}
 		}
@@ -186,8 +182,7 @@ class CategoryField extends FormField
 			$html .= '<a'
 				. ' class="btn btn-secondary' . ($value ? '' : ' sr-only') . '"'
 				. ' id="' . $this->id . '_clear"'
-				. ' href="#"'
-				. ' onclick="window.processModalParent(\'' . $this->id . '\'); return false;">'
+				. ' href="#">'
 				. '<span class="icon-remove" aria-hidden="true"></span>' . \JText::_('JCLEAR')
 				. '</a>';
 		}
@@ -210,7 +205,7 @@ class CategoryField extends FormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">'
+					'footer'      => '<a role="button" id="category-modal-select" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" data-select-id=' . $this->id . '>'
 										. \JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
 				)
 			);
@@ -232,14 +227,11 @@ class CategoryField extends FormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'category\', \'cancel\', \'item-form\'); return false;">'
+					'footer'      => '<a role="button" id="category-modal-new-close" class="btn btn-secondary" aria-hidden="true">'
 							. \JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-							. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'category\', \'save\', \'item-form\'); return false;">'
+							. '<a role="button" id="category-modal-new-save" class="btn btn-primary" aria-hidden="true">'
 							. \JText::_('JSAVE') . '</a>'
-							. '<a role="button" class="btn btn-success" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'category\', \'apply\', \'item-form\'); return false;">'
+							. '<a role="button" id="category-modal-new-apply" class="btn btn-success" aria-hidden="true">'
 							. \JText::_('JAPPLY') . '</a>',
 				)
 			);
@@ -261,14 +253,11 @@ class CategoryField extends FormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'category\', \'cancel\', \'item-form\'); return false;">'
+					'footer'      => '<a role="button" id="category-modal-edit-close" class="btn btn-secondary" aria-hidden="true">'
 							. \JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-							. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'category\', \'save\', \'item-form\'); return false;">'
+							. '<a role="button" id="category-modal-edit-save" class="btn btn-primary" aria-hidden="true">'
 							. \JText::_('JSAVE') . '</a>'
-							. '<a role="button" class="btn btn-success" aria-hidden="true"'
-							. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'category\', \'apply\', \'item-form\'); return false;">'
+							. '<a role="button" id="category-modal-edit-apply" class="btn btn-success" aria-hidden="true">'
 							. \JText::_('JAPPLY') . '</a>',
 				)
 			);
