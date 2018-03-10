@@ -23,31 +23,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('category-modal-new-close').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'add', 'category', 'cancel', 'item-form');
-    alert('category-modal-new-close');return false;
+    return false;
   });
 
   document.getElementById('category-modal-new-save').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'add', 'category', 'save', 'item-form');
-    alert('category-modal-new-save');return false;
+    return false;
   });
 
   document.getElementById('category-modal-new-apply').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'add', 'category', 'apply', 'item-form');
-    alert('category-modal-new-apply');return false;
+    return false;
   });
 
   document.getElementById('category-modal-edit-close').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'edit', 'category', 'cancel', 'item-form');
-    alert('category-modal-edit-close');return false;
+    return false;
   });
 
   document.getElementById('category-modal-edit-save').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'edit', 'category', 'save', 'item-form');
-    alert('category-modal-edit-save');return false;
+    return false;
   });
 
   document.getElementById('category-modal-edit-apply').addEventListener('click', function (event) {
     window.processModalEdit(event.target, document.getElementById('category-modal-select').getAttribute('data-select-id'), 'edit', 'category', 'apply', 'item-form');
-    alert('category-modal-edit-apply');return false;
+    return false;
   });
 });
