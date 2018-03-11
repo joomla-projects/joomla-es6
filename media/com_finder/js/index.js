@@ -15,21 +15,14 @@ Joomla = window.Joomla || {};
 
   document.addEventListener('DOMContentLoaded', function () {
     Joomla.submitbutton = function (pressbutton) {
-      if (pressbutton === 'index.purge') {
-        // TODO replace with joomla-alert
-        if (window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_PURGE_PROMPT'))) {
-          Joomla.submitform(pressbutton);
-        } else {
-          return false;
+      // TODO replace with joomla-alert
+      if (pressbutton === 'index.purge' && !window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_PURGE_PROMPT'))) {
+        return false;
         }
-      }if (pressbutton === 'index.delete') {
-        // TODO replace with joomla-alert
-        if (window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_DELETE_PROMPT'))) {
-          Joomla.submitform(pressbutton);
-        } else {
-          return false;
+      // TODO replace with joomla-alert
+      if (pressbutton === 'index.delete' && !window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_DELETE_PROMPT'))) {
+        return false;
         }
-      }
       Joomla.submitform(pressbutton);
       return true;
     };
