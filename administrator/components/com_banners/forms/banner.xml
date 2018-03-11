@@ -36,7 +36,7 @@
 			required="true"
 			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
 			default=""
-			class="advancedSelect"
+			class="custom-select"
 		/>
 
 		<field
