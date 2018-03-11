@@ -18,11 +18,11 @@ Joomla = window.Joomla || {};
       // TODO replace with joomla-alert
       if (pressbutton === 'index.purge' && !window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_PURGE_PROMPT'))) {
         return false;
-        }
+      }
       // TODO replace with joomla-alert
       if (pressbutton === 'index.delete' && !window.confirm(Joomla.JText._('COM_FINDER_INDEX_CONFIRM_DELETE_PROMPT'))) {
         return false;
-        }
+      }
       Joomla.submitform(pressbutton);
       return true;
     };
