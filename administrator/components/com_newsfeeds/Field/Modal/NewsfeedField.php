@@ -12,6 +12,7 @@ defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * Supports a modal newsfeeds picker.
@@ -67,12 +68,8 @@ class NewsfeedField extends FormField
 
 			if (!isset($scriptSelect[$this->id]))
 			{
-				Factory::getDocument()->addScriptDeclaration("
-				function jSelectNewsfeed_" . $this->id . "(id, title, object) {
-					window.processModalSelect('Newsfeed', '" . $this->id . "', id, title, '', object);
-				}
-				"
-				);
+				Factory::getDocument()->addScriptOptions('newsfeed_id', $this->id);
+				HTMLHelper::_('script', 'com_newsfeeds/admin-field-modal.js', ['relative' => true, 'version' => 'auto']);
 
 				$scriptSelect[$this->id] = true;
 			}
