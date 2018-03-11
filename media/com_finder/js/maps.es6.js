@@ -10,13 +10,10 @@ Joomla = window.Joomla || {};
 
   document.addEventListener('DOMContentLoaded', () => {
     Joomla.submitbutton = (pressbutton) => {
-      if (pressbutton === 'map.delete') {
-        if (window.confirm(Joomla.JText._('COM_FINDER_MAPS_CONFIRM_DELETE_PROMPT'))) {
-          Joomla.submitform(pressbutton);
-        } else {
+      // TODO replace with joomla-alert
+      if (pressbutton === 'map.delete' && !window.confirm(Joomla.JText._('COM_FINDER_MAPS_CONFIRM_DELETE_PROMPT'))) {
           return false;
         }
-      }
       Joomla.submitform(pressbutton);
       return true;
     };
