@@ -16,10 +16,13 @@
 
       // do field validation
       if (form.jform_subject.value === '') {
+        // TODO replace with joomla-alert
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_FILL_IN_THE_SUBJECT'));
       } else if (Joomla.getSelectedValue('adminForm', 'jform[group]') < 0) {
+        // TODO replace with joomla-alert
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_SELECT_A_GROUP'));
       } else if (form.jform_message.value === '') {
+        // TODO replace with joomla-alert
         alert(Joomla.JText._('COM_USERS_MAIL_PLEASE_FILL_IN_THE_MESSAGE'));
       } else {
         Joomla.submitform(pressbutton);
