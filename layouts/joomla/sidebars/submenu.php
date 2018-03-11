@@ -15,7 +15,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\Filter\OutputFilter;
 
 HTMLHelper::_('behavior.core');
-HTMLHelper::_('script', 'system/fields/submenu.min.js', ['version' => 'auto', 'relative' => true]);
 ?>
 <?php if ($displayData->displayMenu || $displayData->displayFilters) : ?>
 <div id="j-toggle-sidebar-wrapper">
