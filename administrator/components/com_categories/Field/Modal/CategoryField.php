@@ -63,7 +63,8 @@ class CategoryField extends FormField
 		// Add the modal field script to the document head.
 		\JHtml::_('jquery.framework');
 		HTMLHelper::_('script', 'system/fields/modal-fields.min.js', array('version' => 'auto', 'relative' => true));
-		HTMLHelper::_('script', 'com_categories/admin-categories-field-modal.js', ['relative' => true, 'version' => 'auto']);
+		HTMLHelper::_('script', 'com_categories/admin-categories-field-modal-process.js', ['relative' => true, 'version' => 'auto']);
+		HTMLHelper::_('script', 'com_categories/admin-categories-field-modal-select.js', ['relative' => true, 'version' => 'auto']);
 
 		// Script to proxy the select modal function to the modal-fields.js file.
 		if ($allowSelect)
@@ -122,6 +123,7 @@ class CategoryField extends FormField
 
 		// The current category display field.
 		$html  = '';
+
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
 		{
 			$html .= '<span class="input-group">';
@@ -205,7 +207,12 @@ class CategoryField extends FormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" id="category-modal-select" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" data-select-id=' . $this->id . '>'
+					'footer'      => '<a role="button" '
+					. '					id="category-modal-select" '
+					. '					class="btn btn-secondary" '
+					. '					data-dismiss="modal" '
+					. '					aria-hidden="true" '
+					. '					data-select-id=' . $this->id . '>'
 										. \JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
 				)
 			);
