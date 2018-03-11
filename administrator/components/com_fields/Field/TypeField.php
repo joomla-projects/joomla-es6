@@ -10,9 +10,8 @@ namespace Joomla\Component\Fields\Administrator\Field;
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormHelper;
-use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\HTML\HTMLHelper;
 
 FormHelper::loadFieldClass('list');
 
@@ -42,7 +41,7 @@ class TypeField extends \JFormFieldList
 	{
 		$return = parent::setup($element, $value, $group);
 
-		$this->onchange = 'typeHasChanged(this);';
+		$this->class .= ' fields-type-field';
 
 		return $return;
 	}
@@ -74,18 +73,7 @@ class TypeField extends \JFormFieldList
 			}
 		);
 
-		Factory::getDocument()->addScriptDeclaration("
-			jQuery( document ).ready(function() {
-				Joomla.loadingLayer('load');
-			});
-			function typeHasChanged(element){
-				Joomla.loadingLayer('show');
-				var cat = jQuery(element);
-				jQuery('input[name=task]').val('field.reload');
-				element.form.submit();
-			}
-		"
-		);
+		HTMLHelper::_('script', 'com_fields/admin-fields-type.min.js', ['relative' => true, 'version' => 'auto']);
 
 		return $options;
 	}
