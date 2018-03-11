@@ -68,7 +68,6 @@ class NewsfeedField extends FormField
 
 			if (!isset($scriptSelect[$this->id]))
 			{
-				Factory::getDocument()->addScriptOptions('newsfeed_id', $this->id);
 				HTMLHelper::_('script', 'com_newsfeeds/admin-field-modal.js', ['relative' => true, 'version' => 'auto']);
 
 				$scriptSelect[$this->id] = true;
@@ -123,7 +122,7 @@ class NewsfeedField extends FormField
 
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
 		{
-			$html .= '<span class="input-group-append">';
+			$html .= '<span class="input-group-append" id="input-group-append-id" data-newsfeed-id="' . $this->id . '">';
 		}
 
 		// Select newsfeed button
