@@ -4,6 +4,7 @@
  */
 (() => {
   'use strict';
+
   class Searchtools {
     constructor(element, options) {
       const defaults = {
@@ -50,30 +51,30 @@
       this.theForm = document.querySelector(this.options.formSelector);
 
       // Filters
-      this.filterButton = document.querySelector(this.options.formSelector + ' ' + this.options.filterBtnSelector);
-      this.filterContainer = document.querySelector(this.options.formSelector + ' ' + this.options.filterContainerSelector) ? document.querySelector(this.options.formSelector + ' ' + this.options.filterContainerSelector) : '';
+      this.filterButton = document.querySelector(`${this.options.formSelector} ${this.options.filterBtnSelector}`);
+      this.filterContainer = document.querySelector(`${this.options.formSelector} ${this.options.filterContainerSelector}`) ? document.querySelector(`${this.options.formSelector} ${this.options.filterContainerSelector}`) : '';
       this.filtersHidden = this.options.filtersHidden;
 
       // List fields
       this.listButton = document.querySelector(this.options.listBtnSelector);
-      this.listContainer = document.querySelector(this.options.formSelector + ' ' + this.options.listContainerSelector);
+      this.listContainer = document.querySelector(`${this.options.formSelector} ${this.options.listContainerSelector}`);
       this.listHidden = this.options.listHidden;
 
       // Main container
       this.mainContainer = document.querySelector(this.options.mainContainerSelector);
 
       // Search
-      this.searchButton = document.querySelector(this.options.formSelector + ' ' + this.options.searchBtnSelector);
-      this.searchField = document.querySelector(this.options.formSelector + ' ' + this.options.searchFieldSelector);
+      this.searchButton = document.querySelector(`${this.options.formSelector} ${this.options.searchBtnSelector}`);
+      this.searchField = document.querySelector(`${this.options.formSelector} ${this.options.searchFieldSelector}`);
       this.searchString = null;
       this.clearButton = document.querySelector(this.options.clearBtnSelector);
 
       // Ordering
-      this.orderCols = Array.prototype.slice.call(document.querySelectorAll(this.options.formSelector + ' ' + this.options.orderColumnSelector));
-      this.orderField = document.querySelector(this.options.formSelector + ' ' + this.options.orderFieldSelector);
+      this.orderCols = Array.prototype.slice.call(document.querySelectorAll(`${this.options.formSelector} ${this.options.orderColumnSelector}`));
+      this.orderField = document.querySelector(`${this.options.formSelector} ${this.options.orderFieldSelector}`);
 
       // Limit
-      this.limitField = document.querySelector(this.options.formSelector + ' ' + this.options.limitFieldSelector);
+      this.limitField = document.querySelector(`${this.options.formSelector} ${this.options.limitFieldSelector}`);
 
       // Init trackers
       this.activeColumn = null;
@@ -83,6 +84,7 @@
 
       // Extra options
       this.clearListOptions = this.options.clearListOptions;
+      this.desiredOption = '';
 
       this.init();
     }
@@ -134,14 +136,12 @@
 
       // Check/create ordering field
       this.createOrderField();
-
       self.orderCols.forEach((item) => {
         item.addEventListener('click', () => {
-
           // Order to set
           const newOrderCol = this.getAttribute('data-order');
           const newDirection = this.getAttribute('data-direction');
-          const newOrdering = newOrderCol + ' ' + newDirection;
+          const newOrdering = `${newOrderCol} ${newDirection}`;
 
           // The data-order attrib is required
           if (newOrderCol.length) {
@@ -159,13 +159,12 @@
 
             self.theForm.submit();
           }
-
         });
       });
 
       self.checkActiveStatus(self);
 
-      document.body.addEventListener('click', (e) => {
+      document.body.addEventListener('click', () => {
         if (document.body.classList.contains('filters-shown')) {
           self.hideFilters();
         }
@@ -173,7 +172,6 @@
       self.filterContainer.addEventListener('click', (e) => {
         e.stopPropagation();
       }, true);
-
     }
 
     checkFilter(element) {
@@ -200,8 +198,8 @@
           i.value = '';
           self.checkFilter(i);
 
-          if (window.jQuery && jQuery.chosen) {
-            jQuery(i).trigger('liszt:updated');
+          if (window.jQuery && window.jQuery.chosen) {
+            window.jQuery(i).trigger('liszt:updated');
           }
         });
       }
@@ -211,16 +209,16 @@
           i.value = '';
           self.checkFilter(i);
 
-          if (window.jQuery && jQuery.chosen) {
-            jQuery(i).trigger('liszt:updated');
+          if (window.jQuery && window.jQuery.chosen) {
+            window.jQuery(i).trigger('liszt:updated');
           }
         });
 
         // Special case to limit box to the default config limit
         document.querySelector('#list_limit').value = self.options.defaultLimit;
 
-        if (window.jQuery && jQuery.chosen) {
-          jQuery('#list_limit').trigger('liszt:updated');
+        if (window.jQuery && window.jQuery.chosen) {
+          window.jQuery('#list_limit').trigger('liszt:updated');
         }
       }
 
@@ -241,7 +239,7 @@
 
     activeFilter(element, cont) {
       element.classList.add('active');
-      const chosenId = '#' + element.getAttribute('id');
+      const chosenId = `#${element.getAttribute('id')}`;
       const tmpEl = element.querySelector(chosenId);
       if (tmpEl) {
         tmpEl.classList.add('active');
@@ -250,8 +248,8 @@
 
     deactiveFilter(element, cont) {
       element.classList.remove('active');
-      var chosenId = '#' + element.getAttribute('id');
-      var tmpEl = element.querySelector(chosenId);
+      const chosenId = `#${element.getAttribute('id')}`;
+      const tmpEl = element.querySelector(chosenId);
       if (tmpEl) {
         tmpEl.classList.remove('active');
       }
@@ -261,7 +259,6 @@
       if (this.filterContainer) {
         return Array.prototype.slice.call(this.filterContainer.querySelectorAll('select,input'));
       }
-
     }
 
     getListFields() {
@@ -319,18 +316,17 @@
       const self = this;
       let newDirection = 'ASC';
 
-      if (self.activeDirection.toUpperCase() == 'ASC') {
+      if (self.activeDirection.toUpperCase() === 'ASC') {
         newDirection = 'DESC';
       }
 
       self.activeDirection = newDirection;
-      self.activeOrder = self.activeColumn + ' ' + newDirection;
+      self.activeOrder = `${self.activeColumn} ${newDirection}`;
 
       self.updateFieldValue(self.orderField, self.activeOrder);
     }
 
     createOrderField() {
-
       const self = this;
 
       if (!this.orderField) {
@@ -339,13 +335,13 @@
         this.orderField.setAttribute('id', 'js-stools-field-order');
         this.orderField.setAttribute('class', 'js-stools-field-order');
         this.orderField.setAttribute('name', self.options.orderFieldName);
-        this.orderField.setAttribute('value', self.activeOrder + ' ' + this.activeDirection);
+        this.orderField.setAttribute('value', `${self.activeOrder} ${this.activeDirection}`);
 
         this.theForm.innerHTML += this.orderField.outerHTML;
       }
 
       // Add missing columns to the order select
-      if (this.orderField.tagName.toLowerCase() == 'select') {
+      if (this.orderField.tagName.toLowerCase() === 'select') {
         const allOptions = this.orderField.options;
         allOptions.forEach((option) => {
           let value = option.getAttribute('data-order');
@@ -353,7 +349,7 @@
           const direction = option.getAttribute('data-direction');
 
           if (value && value.length) {
-            value = value + ' ' + direction;
+            value = `${value} ${direction}`;
 
             let newOption = self.findOption(self.orderField, value);
 
@@ -373,8 +369,8 @@
           }
         });
 
-        if (window.jQuery && jQuery.chosen) {
-          jQuery(this.orderField).trigger('liszt:updated');
+        if (window.jQuery && window.jQuery.chosen) {
+          window.jQuery(this.orderField).trigger('liszt:updated');
         }
       }
 
@@ -382,27 +378,23 @@
     }
 
     updateFieldValue(field, newValue) {
-
-      const self = this;
       const type = field.getAttribute('type');
-
       if (type === 'hidden' || type === 'text') {
         field.setAttribute('value', newValue);
-      }
-      else if (field.tagName.toLowerCase() === 'select') {
+      } else if (field.tagName.toLowerCase() === 'select') {
         // Select the option result
         const allOptions = field.options;
         allOptions.forEach((option) => {
-          if (option.value == newValue) {
-            let desiredOption = option;
+          if (option.value === newValue) {
+            this.desiredOption = option;
           }
         });
 
-        if (desiredOption && desiredOption.length) {
-          desiredOption.setAttribute('selected', 'selected');
+        if (this.desiredOption && this.desiredOption.length) {
+          this.desiredOption.setAttribute('selected', 'selected');
         } else {
           // If the option does not exist create it on the fly
-          let option = document.createElement('option');
+          const option = document.createElement('option');
           option.text = name;
           option.value = newValue;
           option.setAttribute('selected', 'selected');
@@ -413,7 +405,7 @@
 
         field.value = newValue;
         // Trigger the chosen update
-        if (window.jQuery && jQuery.chosen) {
+        if (window.jQuery && window.jQuery.chosen) {
           field.trigger('liszt:updated');
         }
       }
@@ -421,10 +413,10 @@
 
     findOption(selects, value) {
       selects.forEach((select) => {
-        if (select.value == value) {
+        if (select.value === value) {
           return select;
         }
-      })
+      });
     }
   }
 
@@ -434,7 +426,7 @@
       const options = Joomla.getOptions('searchtools');
       const element = document.querySelector(options.selector);
 
-      new Searchtools(element, options);
+      Searchtools(element, options);
     }
   });
 })();
