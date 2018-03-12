@@ -11,37 +11,26 @@
  * @package  Joomla
  * @since    3.7.0
  */
-!(function(){
-	'use strict';
+((window, document, getOptions, Request) => {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', () => {
+    const keepaliveOptions = getOptions('system.keepalive');
+    let keepaliveUri = keepaliveOptions && keepaliveOptions.uri ? keepaliveOptions.uri.replace(/&amp;/g, '&') : '';
+    const keepaliveInterval = keepaliveOptions && keepaliveOptions.interval ? keepaliveOptions.interval : 45 * 1000;
 
-	document.addEventListener('DOMContentLoaded', function() {
+    // Fallback in case no keepalive uri was found.
+    if (keepaliveUri === '') {
+      const systemPaths = getOptions('system.paths');
 
-		var keepaliveOptions  = Joomla.getOptions('system.keepalive'),
-            keepaliveUri      = keepaliveOptions && keepaliveOptions.uri ? keepaliveOptions.uri.replace(/&amp;/g, '&') : '',
-            keepaliveInterval = keepaliveOptions && keepaliveOptions.interval ? keepaliveOptions.interval : 45 * 1000;
+      keepaliveUri = (systemPaths ? systemPaths.root + '/index.php' : window.location.pathname) + '?option=com_ajax&format=json';
+    }
 
-        // Fallback in case no keepalive uri was found.
-        if (keepaliveUri === '')
-        {
-            var systemPaths = Joomla.getOptions('system.paths');
-
-            keepaliveUri = (systemPaths ? systemPaths.root + '/index.php' : window.location.pathname) + '?option=com_ajax&format=json';
-        }
-
-		window.setInterval(function() {
-			Joomla.request({
-				url:    keepaliveUri,
-				onSuccess: function(response, xhr)
-				{
-					// Do nothing
-				},
-				onError: function(xhr)
-				{
-					// Do nothing
-				}
-			});
-		}, keepaliveInterval);
-
-	});
-
-})(window, document, Joomla);
+    window.setInterval(() => {
+      Request({
+        url: keepaliveUri,
+        onSuccess: () => { },
+        onError: () => { }
+      });
+    }, keepaliveInterval);
+  });
+})(window, document, Joomla.getOptions, Joomla.request);
