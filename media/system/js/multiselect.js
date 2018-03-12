@@ -8,99 +8,97 @@
  */
 Joomla = window.Joomla || {};
 
-(function(Joomla) {
-	Joomla.JMultiSelect = function(formElement) {
-		'use strict';
+((Joomla) => {
+  Joomla.JMultiSelect = (formElement) => {
+    'use strict';
+    const initialize = (formElement) => {
+      const tableEl = document.querySelector(formElement);
 
-		var last, boxes,
+      if (tableEl) {
+        boxes = [].slice.call(tableEl.querySelectorAll('input[type=checkbox]'));
+        boxes.forEach((box) => {
+          box.addEventListener('click', (e) => {
+            doselect(e)
+          })
+        });
+      }
+    };
 
-		    initialize = function(formElement) {
-			    var tableEl = document.querySelector(formElement);
+    const doselect = (e) => {
+      const current = e.target;
+      let last;
+      let isChecked = false;
 
-			    if (tableEl) {
-				    boxes = tableEl.querySelectorAll('input[type=checkbox]');
-				    var i = 0, countB = boxes.length;
-				    for (i; boxes < countB; i++) {
-					    boxes[i].addEventListener('click', function (e) {
-						    doselect(e)
-					    });
-				    }
-			    }
-		    },
+      if (e.shiftKey && last.length) {
+        isChecked = current.hasAttribute(':checked');
+        let lastIndex = boxes.index(last);
+        let currentIndex = boxes.index(current);
+        if (currentIndex < lastIndex) {
+          // handle selection from bottom up
+          const swap = lastIndex;
+          lastIndex = currentIndex;
+          currentIndex = swap;
+        }
+        boxes.slice(lastIndex, currentIndex + 1).setAttribute('checked', isChecked);
+      }
 
-		    doselect = function(e) {
-			    var current = e.target, isChecked, lastIndex, currentIndex, swap;
-			    if (e.shiftKey && last.length) {
-				    isChecked = current.hasAttribute(':checked');
-				    lastIndex = boxes.index(last);
-				    currentIndex = boxes.index(current);
-				    if (currentIndex < lastIndex) {
-					    // handle selection from bottom up
-					    swap = lastIndex;
-					    lastIndex = currentIndex;
-					    currentIndex = swap;
-				    }
-				    boxes.slice(lastIndex, currentIndex + 1).setAttribute('checked', isChecked);
-			    }
+      last = current;
+    };
+    initialize(formElement);
+  };
 
-			    last = current;
-		    };
-		initialize(formElement);
-	};
+  document.addEventListener('DOMContentLoaded', (event) => {
+    if (Joomla.getOptions && typeof Joomla.getOptions === 'function' && Joomla.getOptions('js-multiselect')) {
+      if (Joomla.getOptions('js-multiselect').formName) {
+        Joomla.JMultiSelect(Joomla.getOptions('js-multiselect').formName);
+      } else {
+        Joomla.JMultiSelect('adminForm');
+      }
+    }
 
-	document.addEventListener('DOMContentLoaded', function(event) {
-		'use strict';
+    const rows = [].slice.call(document.querySelectorAll('tr[class^="row"]'));
 
-		if (Joomla.getOptions && typeof Joomla.getOptions === 'function' && Joomla.getOptions('js-multiselect')) {
-			if (Joomla.getOptions('js-multiselect').formName) {
-				Joomla.JMultiSelect(Joomla.getOptions('js-multiselect').formName);
-			} else {
-				Joomla.JMultiSelect('adminForm');
-			}
-		}
+    // Changes the background-color on every <td> inside a <tr>
+    changeBg = (item, checkall) => {
+      // Check if it should add or remove the background colour
+      if (checkall.checked) {
+        [].slice.call(item.querySelectorAll('td')).forEach((td) => {
+          td.classList.add('row-selected');
+        });
+      }
+      else {
+        [].slice.call(item.querySelectorAll('td')).forEach((td) => {
+          td.classList.remove('row-selected');
+        });
+      }
+    }
 
-		var rows = document.querySelectorAll('tr[class^="row"]');
+    const checkallToggle = document.getElementsByName('checkall-toggle')[0];
 
-		// Changes the background-color on every <td> inside a <tr>
-		function changeBg(item, checkall) {
-			// Check if it should add or remove the background colour
-			if (checkall.checked) {
-				item.querySelectorAll('td').forEach (function(td) {
-					td.classList.add('row-selected');
-				});
-			}
-			else {
-				item.querySelectorAll('td').forEach (function(td) {
-					td.classList.remove('row-selected');
-				});
-			}
-		}
+    if (checkallToggle) {
+      checkallToggle.addEventListener('click', (event) => {
+        const checkall = event.currentTarget;
 
-		var checkallToggle = document.getElementsByName('checkall-toggle')[0];
+        rows.forEach((row, index) => {
+          changeBg(row, checkall);
+        });
+      });
+    }
 
-		if (checkallToggle) {
-			checkallToggle.addEventListener('click', function(event) {
-				var checkall = this;
+    if (rows.length) {
+      rows.forEach((row, index) => {
+        row.addEventListener('click', (event) => {
+          const clicked = 'cb' + index;
+          const cbClicked = document.getElementById(clicked);
 
-				rows.forEach(function(row, index) {
-					changeBg(row, checkall);
-				});
-			});
-		}
+          if (!(event.target.id == clicked)) {
+            cbClicked.checked = !cbClicked.checked;
+            Joomla.isChecked(cbClicked.checked);
+          }
 
-		if (rows.length) {
-			rows.forEach(function(row, index) {
-				row.addEventListener('click', function(event) {
-					var clicked   = 'cb' + index, cbClicked = document.getElementById(clicked);
-
-					if (!(event.target.id == clicked)) {
-						cbClicked.checked = !cbClicked.checked;
-						Joomla.isChecked(cbClicked.checked);
-					}
-
-					changeBg(this, cbClicked);
-				});
-			});
-		}
-	});
+          changeBg(event.currentTarget, cbClicked);
+        });
+      });
+    }
+  });
 })(Joomla);
