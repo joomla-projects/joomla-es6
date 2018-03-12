@@ -1,6 +1,6 @@
 /**
  * @copyright  Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @license  GNU General Public License version 2 or later; see LICENSE.txt
  */
 (() => {
   "use strict";
@@ -153,8 +153,7 @@
 
               // Update the order field
               self.updateFieldValue(self.orderField, newOrdering);
-            }
-            else {
+            } else {
               self.toggleDirection();
             }
 
@@ -348,32 +347,31 @@
       // Add missing columns to the order select
       if (this.orderField.tagName.toLowerCase() == 'select') {
         const allOptions = this.orderField.options;
-        for (let i = 0, l = allOptions.length; l > i; i++) {
-
-          let value = allOptions[i].getAttribute('data-order');
-          const name = allOptions[i].getAttribute('data-name');
-          const direction = allOptions[i].getAttribute('data-direction');
+        allOptions.forEach((option) => {
+          let value = option.getAttribute('data-order');
+          const name = option.getAttribute('data-name');
+          const direction = option.getAttribute('data-direction');
 
           if (value && value.length) {
             value = value + ' ' + direction;
 
-            let option = self.findOption(self.orderField, value);
+            let newOption = self.findOption(self.orderField, value);
 
-            if (!option.length) {
-              option = document.createElement('option');
-              option.text = name;
-              option.value = value;
+            if (!newOption.length) {
+              newOption = document.createElement('option');
+              newOption.text = name;
+              newOption.value = value;
 
               // If it is the active option select it
-              if (allOptions[i].classList.contains('active')) {
-                option.setAttribute('selected', 'selected');
+              if (option.classList.contains('active')) {
+                newOption.setAttribute('selected', 'selected');
               }
 
               // Append the option an repopulate the chosen field
-              self.orderFieldName.appendChild(option);
+              self.orderFieldName.appendChild(newOption);
             }
           }
-        }
+        });
 
         if (window.jQuery && jQuery.chosen) {
           jQuery(this.orderField).trigger('liszt:updated');
@@ -394,17 +392,16 @@
       else if (field.tagName.toLowerCase() === 'select') {
         // Select the option result
         const allOptions = field.options;
-        for (let i = 0, l = allOptions.length; l > i; i++) {
-          if (allOptions[i].value == newValue) {
-            let desiredOption = allOptions[i];
+        allOptions.forEach((option) => {
+          if (option.value == newValue) {
+            let desiredOption = option;
           }
-        }
+        });
 
         if (desiredOption && desiredOption.length) {
           desiredOption.setAttribute('selected', 'selected');
-        }
-        // If the option does not exist create it on the fly
-        else {
+        } else {
+          // If the option does not exist create it on the fly
           let option = document.createElement('option');
           option.text = name;
           option.value = newValue;
@@ -422,12 +419,12 @@
       }
     }
 
-    findOption(select, value) {
-      for (let i = 0, l = select.length; l > i; i++) {
-        if (select[i].value == value) {
-          return select[i];
+    findOption(selects, value) {
+      selects.forEach((select) => {
+        if (select.value == value) {
+          return select;
         }
-      }
+      })
     }
   }
 
