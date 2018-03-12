@@ -9,94 +9,96 @@
 Joomla = window.Joomla || {};
 
 ((Joomla) => {
-  Joomla.JMultiSelect = (formElement) => {
+  const multiSelect = (formElement) => {
     'use strict';
-    const initialize = (formElement) => {
-      const tableEl = document.querySelector(formElement);
 
-      if (tableEl) {
-        boxes = [].slice.call(tableEl.querySelectorAll('input[type=checkbox]'));
-        boxes.forEach((box) => {
-          box.addEventListener('click', (e) => {
-            doselect(e)
-          })
-        });
-      }
-    };
+    const tableEl = document.querySelector(formElement);
+
+    if (!tableEl) {
+      throw new Error('No checkboxes found!');
+    }
+
+    const boxes = [].slice.call(tableEl.querySelectorAll('input[type=checkbox]'));
+    let last;
 
     const doselect = (e) => {
       const current = e.target;
-      let last;
+      const boxs = boxes;
       let isChecked = false;
 
       if (e.shiftKey && last.length) {
         isChecked = current.hasAttribute(':checked');
-        let lastIndex = boxes.index(last);
-        let currentIndex = boxes.index(current);
+        let lastIndex = boxs.index(last);
+        let currentIndex = boxs.index(current);
         if (currentIndex < lastIndex) {
           // handle selection from bottom up
           const swap = lastIndex;
           lastIndex = currentIndex;
           currentIndex = swap;
         }
-        boxes.slice(lastIndex, currentIndex + 1).setAttribute('checked', isChecked);
+        boxs.slice(lastIndex, currentIndex + 1).setAttribute('checked', isChecked);
       }
 
       last = current;
     };
-    initialize(formElement);
+
+    boxes.forEach((box) => {
+      box.addEventListener('click', (e) => {
+        doselect(e);
+      });
+    });
   };
 
-  document.addEventListener('DOMContentLoaded', (event) => {
+  document.addEventListener('DOMContentLoaded', () => {
     if (Joomla.getOptions && typeof Joomla.getOptions === 'function' && Joomla.getOptions('js-multiselect')) {
       if (Joomla.getOptions('js-multiselect').formName) {
-        Joomla.JMultiSelect(Joomla.getOptions('js-multiselect').formName);
+        multiSelect(`#${Joomla.getOptions('js-multiselect').formName}`);
       } else {
-        Joomla.JMultiSelect('adminForm');
+        multiSelect('#adminForm');
       }
     }
 
     const rows = [].slice.call(document.querySelectorAll('tr[class^="row"]'));
 
     // Changes the background-color on every <td> inside a <tr>
-    changeBg = (item, checkall) => {
+    const changeBg = (item, checkall) => {
       // Check if it should add or remove the background colour
       if (checkall.checked) {
         [].slice.call(item.querySelectorAll('td')).forEach((td) => {
           td.classList.add('row-selected');
         });
-      }
-      else {
+      } else {
         [].slice.call(item.querySelectorAll('td')).forEach((td) => {
           td.classList.remove('row-selected');
         });
       }
-    }
+    };
 
     const checkallToggle = document.getElementsByName('checkall-toggle')[0];
 
     if (checkallToggle) {
-      checkallToggle.addEventListener('click', (event) => {
-        const checkall = event.currentTarget;
+      checkallToggle.addEventListener('click', (evt) => {
+        const checkall = evt.currentTarget;
+        const changeBgr = changeBg;
 
-        rows.forEach((row, index) => {
-          changeBg(row, checkall);
+        rows.forEach((row) => {
+          changeBgr(row, checkall);
         });
       });
     }
 
     if (rows.length) {
       rows.forEach((row, index) => {
-        row.addEventListener('click', (event) => {
-          const clicked = 'cb' + index;
+        row.addEventListener('click', (ev) => {
+          const clicked = `cb${index}`;
           const cbClicked = document.getElementById(clicked);
 
-          if (!(event.target.id == clicked)) {
+          if (!(ev.target.id === clicked)) {
             cbClicked.checked = !cbClicked.checked;
             Joomla.isChecked(cbClicked.checked);
           }
 
-          changeBg(event.currentTarget, cbClicked);
+          changeBg(ev.currentTarget, cbClicked);
         });
       });
     }
