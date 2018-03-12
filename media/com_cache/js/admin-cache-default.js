@@ -2,7 +2,6 @@
 * PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
 * OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
 **/
-var _this = this;
 
 /**
  * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
@@ -16,8 +15,8 @@ Joomla = window.Joomla || {};
 
   document.addEventListener('DOMContentLoaded', function () {
     [].slice.call(document.querySelectorAll('.cache-entry')).forEach(function (el) {
-      el.addEventListener('click', function () {
-        Joomla.isChecked(_this.checked);
+      el.addEventListener('click', function (event) {
+        Joomla.isChecked(event.currentTarget.checked);
       });
     });
   });
