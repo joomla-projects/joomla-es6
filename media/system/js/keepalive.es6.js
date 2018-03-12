@@ -14,6 +14,10 @@
 ((window, document, getOptions, request) => {
   'use strict';
 
+  if (typeof getOptions !== 'function' || typeof request !== 'function') {
+    throw new Error('Joomla API is not properly initialised');
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const keepaliveOptions = getOptions('system.keepalive');
     let keepaliveUri = keepaliveOptions && keepaliveOptions.uri
