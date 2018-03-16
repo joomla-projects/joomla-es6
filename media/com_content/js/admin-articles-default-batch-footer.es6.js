@@ -15,7 +15,7 @@
    */
   const submitTask = (task) => {
     const form = document.getElementById(formId);
-    if (task === 'article.batch') {
+    if (form && task === 'article.batch') {
       submitForm(task, form);
     }
   };
@@ -23,9 +23,11 @@
   // Register events
   document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById('batch-submit-button-id');
-    button.addEventListener('click', (e) => {
-      const task = e.target.getAttribute(buttonDataSelector);
-      submitTask(task);
-    });
+    if (button) {
+      button.addEventListener('click', (e) => {
+        const task = e.target.getAttribute(buttonDataSelector);
+        submitTask(task);
+      });
+    }
   });
 })(document, Joomla.submitform);

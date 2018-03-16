@@ -21,7 +21,7 @@
    */
   var submitTask = function submitTask(task) {
     var form = document.getElementById(formId);
-    if (task === 'article.batch') {
+    if (form && task === 'article.batch') {
       submitForm(task, form);
     }
   };
@@ -29,9 +29,11 @@
   // Register events
   document.addEventListener('DOMContentLoaded', function () {
     var button = document.getElementById('batch-submit-button-id');
-    button.addEventListener('click', function (e) {
-      var task = e.target.getAttribute(buttonDataSelector);
-      submitTask(task);
-    });
+    if (button) {
+      button.addEventListener('click', function (e) {
+        var task = e.target.getAttribute(buttonDataSelector);
+        submitTask(task);
+      });
+    }
   });
 })(document, Joomla.submitform);
