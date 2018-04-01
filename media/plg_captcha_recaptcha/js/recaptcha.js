@@ -12,7 +12,8 @@
 window.JoomlaInitReCaptcha2 = function () {
   'use strict';
 
-  var items = document.getElementsByClassName('g-recaptcha');
+  var itemNodes = document.getElementsByClassName('g-recaptcha');
+  var items = [].slice.call(itemNodes);
   items.forEach(function (item) {
     var options = item.dataset ? item.dataset : {
       sitekey: item.getAttribute('data-sitekey'),
