@@ -7,7 +7,8 @@
 window.JoomlaInitReCaptcha2 = () => {
   'use strict';
 
-  const items = document.getElementsByClassName('g-recaptcha');
+  const itemNodes = document.getElementsByClassName('g-recaptcha');
+  const items = [].slice.call(itemNodes);
   items.forEach((item) => {
     const options = item.dataset ? item.dataset : {
       sitekey: item.getAttribute('data-sitekey'),
