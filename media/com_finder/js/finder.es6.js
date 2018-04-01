@@ -9,8 +9,8 @@ Joomla = window.Joomla || {};
   'use strict';
 
   document.addEventListener('DOMContentLoaded', () => {
-    const searchwords = document.querySelectorAll('.js-finder-search-query');
-
+    const searchwordNodes = document.querySelectorAll('.js-finder-search-query');
+    const searchwords = [].splice.call(searchwordNodes);
     searchwords.forEach((searchword) => {
       // If the current value equals the default value, clear it.
       searchword.addEventListener('focus', (event) => {
@@ -33,7 +33,7 @@ Joomla = window.Joomla || {};
               onSuccess(response, xhr) {
                 response = JSON.parse(response); // eslint-disable-line no-param-reassign
                 if (Object.prototype.toString.call(response.suggestions) === '[object Array]') {
-                  new Awesomplete(event.target, { list: response.suggestions }); // eslint-disable-line no-new
+                  new Awesomplete(event.target, { list: response.suggestions });
                 }
               },
               onError(xhr) {
@@ -45,8 +45,8 @@ Joomla = window.Joomla || {};
       }
     });
 
-    const forms = document.querySelectorAll('.js-finder-searchform');
-
+    const formNodes = document.querySelectorAll('.js-finder-searchform');
+    const forms = [].slice.call(formNodes);
     forms.forEach((form) => {
       form.addEventListener('submit', (event) => {
         event.stopPropagation();
