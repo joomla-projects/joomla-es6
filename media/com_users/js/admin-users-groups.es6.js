@@ -5,7 +5,7 @@
 
 Joomla = window.Joomla || {};
 
-(() => {
+((Joomla) => {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -26,4 +26,4 @@ Joomla = window.Joomla || {};
       return false;
     };
   });
-})();
+})(Joomla);

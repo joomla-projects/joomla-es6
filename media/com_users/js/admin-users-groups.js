@@ -10,7 +10,7 @@
 
 Joomla = window.Joomla || {};
 
-(function () {
+(function (Joomla) {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -31,4 +31,4 @@ Joomla = window.Joomla || {};
       return false;
     };
   });
-})();
+})(Joomla);
